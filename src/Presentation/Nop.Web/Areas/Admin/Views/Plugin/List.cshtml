@@ -182,7 +182,7 @@
                                 {
                                     Title = T("Admin.Configuration.Plugins.Fields.Logo").Text,
                                     Width = "200",
-                                    ClassName = StyleColumn.CenterAll,
+                                    ClassName = NopColumnClassDefaults.CenterAll,
                                     Render = new RenderPicture()
                                 },
                                 new ColumnProperty(nameof(PluginModel.Description))
@@ -200,7 +200,7 @@
                                 {
                                     Title = T("Admin.Configuration.Plugins.Fields.Installation").Text,
                                     Width = "100",
-                                    ClassName =  StyleColumn.ButtonStyle,
+                                    ClassName =  NopColumnClassDefaults.Button,
                                     Render = new RenderCustom("renderColumnInstalled")
                                 }
                             }
@@ -293,7 +293,7 @@
                             $(document).ready(function () {
                                 $('#btnRefreshList').click(function () {
                                     //refresh grid
-                                    $('#plugins-local-grid').DataTable().ajax.reload();
+                                    updateTable('#plugins-local-grid');
 
                                     //return false to don't reload a page
                                     return false;

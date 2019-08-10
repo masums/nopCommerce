@@ -907,6 +907,105 @@ set @resources='
   </LocaleResource>  
   <LocaleResource Name="Admin.System.SystemInfo.CurrentStaticCacheManager.Hint">
 	<Value>Indicating the current static cache manager name.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Languages.Selector.Label">
+    <Value>Languages selector</Value>
+  </LocaleResource>
+  <LocaleResource Name="Tax.Selector.Label">
+    <Value>Tax selector</Value>
+  </LocaleResource>
+  <LocaleResource Name="Products.Specs.AttributeName">
+    <Value>Attribute name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Products.Specs.AttributeValue">
+    <Value>Attribute value</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Customers.Customers.CustomerRolesManagingError">
+    <Value>Not enough rights to manage customer roles.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoProductBoxes.Hint">
+    <Value>Check to display tax and shipping information in product boxes (catalog pages). This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoFooter.Hint">
+    <Value>Check to display tax and shipping information in the footer. This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoProductDetailsPage.Hint">
+    <Value>Check to display tax and shipping information on product details pages. This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoOrderDetailsPage.Hint">
+    <Value>Check to display tax and shipping information on the order details page. This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoShoppingCart.Hint">
+    <Value>Check to display tax and shipping information on the shopping cart page. This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Catalog.DisplayTaxShippingInfoWishlist.Hint">
+    <Value>Check to display tax and shipping information on the wishlist page. This option is required in Germany.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Plugins.Errors.UninstallDependsOn">
+    <Value>The following plugins depend on the "{0}" plugin and must be uninstalled beforehand: "{1}"</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Plugins.Errors.InstallDependsOn">
+    <Value>The "{0}" plugin depends on the following plugins which must be installed beforehand: "{1}"</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.FaviconAndAppIcons.Description">
+    <Value>Favicon and app icons are small pictures associated with a particular website or web page. They are displayed by the browser in the tab before the page title, and as a picture next to a bookmark, in tabs and in other interface elements. You can see an example of the favicon and app icons archive in /icons/samples in the root of the site.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.FaviconAndAppIcons.MissingFile">
+    <Value>Could not find file {0}. This file is required. It contains the code for the page head element.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.FaviconAndAppIcons.UploadIconsArchive">
+    <Value>Upload icons archive</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.FaviconAndAppIcons.UploadIconsArchive.Hint">
+    <Value>Upload archive with favicon and app icons for different operating systems and devices. You can see an example of the favicon and app icons archive in /icons/samples in the root of the site. Your favicon and app icons path is "icons/icons_{0}"</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.FaviconAndAppIcons.Uploaded">
+    <Value>Favicon and app icons have been uploaded</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.GeneralCommon.BlockTitle.FaviconAndAppIcons">
+    <Value>Favicon and app icons</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Plugins.ApplyChanges">
+    <Value>Restart application to apply changes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Plugins.DiscardChanges">
+    <Value>Discard changes</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Plugins.ApplyChanges.Progress">
+    <Value>Applying changes on plugins...</Value>
+  </LocaleResource>    
+  <LocaleResource Name="Admin.Configuration.Plugins.DiscardChanges.Progress">
+    <Value>Discarding changes on plugins...</Value>
+  </LocaleResource>    
+  <LocaleResource Name="Admin.Configuration.Plugins.ChangesApplyAfterReboot">
+    <Value>Changes will be apply after restart application</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Plugins.Errors.NotDeleted">
+    <Value>The plugin "{0}" not deleted</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Plugins.Errors.NotInstalled">
+    <Value>The plugin "{0}" not installed</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Plugins.Errors.NotUninstalled">
+    <Value>The plugin "{0}" not uninstalled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.System.Warnings.PluginRequiredAssembly">
+    <Value>the ''{0}'' plugin required the ''{1}'' assembly</Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.System.Warnings.AssemblyHasCollision">
+    <Value>The ''{0}'' assembly has collision, application loaded the ''{1}'' assembly, but {2}</Value>
+  </LocaleResource> 
+  <LocaleResource Name="Admin.Configuration.Plugins.Deleted">
+    <Value></Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Plugins.Installed">
+    <Value></Value>
+  </LocaleResource>  
+  <LocaleResource Name="Admin.Configuration.Plugins.Uninstalled">
+    <Value></Value>
+  </LocaleResource>   
+  <LocaleResource Name="ActivityLog.UploadNewIconsArchive">
+    <Value>Uploaded a new favicon and app icons archive for store (ID = ''{0}'')</Value>
   </LocaleResource>  
 </Language>'
 
@@ -2156,5 +2255,601 @@ IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = object_id('[Picture]'
 BEGIN
 	ALTER TABLE [Picture] ADD
 	VirtualPath nvarchar(MAX) NULL
+END
+GO
+
+--update datetime fields to change type
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ActivityLog' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_ActivityLog_CreatedOnUtc] ON [ActivityLog]
+	ALTER TABLE [ActivityLog] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_ActivityLog_CreatedOnUtc] ON [ActivityLog] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Address' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_ActivityLog_CreatedOnUtc] ON [ActivityLog]
+	ALTER TABLE [Address] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_ActivityLog_CreatedOnUtc] ON [ActivityLog] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Address' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Address] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BackInStockSubscription' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [BackInStockSubscription] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BlogComment' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [BlogComment] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BlogPost' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [BlogPost] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Campaign' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Campaign] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Category' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Category] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Currency' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Currency] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customer' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_Customer_CreatedOnUtc] ON [Customer]
+	ALTER TABLE [Customer] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_Customer_CreatedOnUtc] ON [Customer] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'CustomerPassword' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [CustomerPassword] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'DiscountUsageHistory' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [DiscountUsageHistory] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Forum' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Forum] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Group' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Group] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Post' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Post] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_PostVote' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_PostVote] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_PrivateMessage' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_PrivateMessage] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Subscription' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Subscription] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Topic' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Topic] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'GdprLog' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [GdprLog] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'GiftCard' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [GiftCard] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'GiftCardUsageHistory' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [GiftCardUsageHistory] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Log' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_Log_CreatedOnUtc] ON [Log]
+	ALTER TABLE [Log] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_Log_CreatedOnUtc] ON [Log] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Manufacturer' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Manufacturer] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'News' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [News] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NewsComment' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [NewsComment] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'NewsLetterSubscription' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [NewsLetterSubscription] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Order' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_Order_CreatedOnUtc] ON [Order]
+	ALTER TABLE [Order] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_Order_CreatedOnUtc] ON [Order] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OrderNote' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [OrderNote] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'PollVotingRecord' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [PollVotingRecord] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Product] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ProductReview' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ProductReview] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'QueuedEmail' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_QueuedEmail_CreatedOnUtc] ON [QueuedEmail]
+	ALTER TABLE [QueuedEmail] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+	CREATE NONCLUSTERED INDEX [IX_QueuedEmail_CreatedOnUtc] ON [QueuedEmail] ([CreatedOnUtc] DESC)
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'RecurringPayment' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [RecurringPayment] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'RecurringPaymentHistory' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [RecurringPaymentHistory] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ReturnRequest' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ReturnRequest] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'RewardPointsHistory' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [RewardPointsHistory] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Shipment' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Shipment] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ShoppingCartItem' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ShoppingCartItem] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'StockQuantityHistory' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [StockQuantityHistory] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'VendorNote' AND COLUMN_NAME = 'CreatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [VendorNote] ALTER column [CreatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BlogPost' AND COLUMN_NAME = 'StartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [BlogPost] ALTER column [StartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'BlogPost' AND COLUMN_NAME = 'EndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [BlogPost] ALTER column [EndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Campaign' AND COLUMN_NAME = 'DontSendBeforeDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Campaign] ALTER column [DontSendBeforeDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Category' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Category] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Currency' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Currency] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Forum' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Forum] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Group' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Group] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Post' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Post] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Topic' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Topic] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Manufacturer' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Manufacturer] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Product] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ReturnRequest' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ReturnRequest] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ShoppingCartItem' AND COLUMN_NAME = 'UpdatedOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ShoppingCartItem] ALTER column [UpdatedOnUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customer' AND COLUMN_NAME = 'CannotLoginUntilDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Customer] ALTER column [CannotLoginUntilDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customer' AND COLUMN_NAME = 'LastLoginDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Customer] ALTER column [LastLoginDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customer' AND COLUMN_NAME = 'LastActivityDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Customer] ALTER column [LastActivityDateUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Discount' AND COLUMN_NAME = 'StartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Discount] ALTER column [StartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Discount' AND COLUMN_NAME = 'EndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Discount] ALTER column [EndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Forum' AND COLUMN_NAME = 'LastPostTime' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Forum] ALTER column [LastPostTime] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Forums_Topic' AND COLUMN_NAME = 'LastPostTime' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Forums_Topic] ALTER column [LastPostTime] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'News' AND COLUMN_NAME = 'StartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [News] ALTER column [StartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'News' AND COLUMN_NAME = 'EndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [News] ALTER column [EndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Order' AND COLUMN_NAME = 'PaidDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Order] ALTER column [PaidDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OrderItem' AND COLUMN_NAME = 'RentalStartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [OrderItem] ALTER column [RentalStartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'OrderItem' AND COLUMN_NAME = 'RentalEndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [OrderItem] ALTER column [RentalEndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Poll' AND COLUMN_NAME = 'StartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Poll] ALTER column [StartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Poll' AND COLUMN_NAME = 'EndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Poll] ALTER column [EndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'PreOrderAvailabilityStartDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Product] ALTER column [PreOrderAvailabilityStartDateTimeUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'MarkAsNewStartDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Product] ALTER column [MarkAsNewStartDateTimeUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'MarkAsNewEndDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Product] ALTER column [MarkAsNewEndDateTimeUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'AvailableStartDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_Product_PriceDatesEtc] ON [Product]
+	DROP INDEX [IX_Product_VisibleIndividually_Published_Deleted_Extended] ON [Product]
+	ALTER TABLE [Product] ALTER column [AvailableStartDateTimeUtc] [datetime2](7) NULL
+	CREATE NONCLUSTERED INDEX [IX_Product_PriceDatesEtc] ON [Product]  ([Price] ASC, [AvailableStartDateTimeUtc] ASC, [AvailableEndDateTimeUtc] ASC, [Published] ASC, [Deleted] ASC)
+	CREATE NONCLUSTERED INDEX [IX_Product_VisibleIndividually_Published_Deleted_Extended] ON [Product] ([VisibleIndividually],[Published],[Deleted]) INCLUDE ([Id],[AvailableStartDateTimeUtc],[AvailableEndDateTimeUtc])
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Product' AND COLUMN_NAME = 'AvailableEndDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_Product_PriceDatesEtc] ON [Product]
+	DROP INDEX [IX_Product_VisibleIndividually_Published_Deleted_Extended] ON [Product]
+	ALTER TABLE [Product] ALTER column [AvailableEndDateTimeUtc] [datetime2](7) NULL
+	CREATE NONCLUSTERED INDEX [IX_Product_PriceDatesEtc] ON [Product]  ([Price] ASC, [AvailableStartDateTimeUtc] ASC, [AvailableEndDateTimeUtc] ASC, [Published] ASC, [Deleted] ASC)
+	CREATE NONCLUSTERED INDEX [IX_Product_VisibleIndividually_Published_Deleted_Extended] ON [Product] ([VisibleIndividually],[Published],[Deleted]) INCLUDE ([Id],[AvailableStartDateTimeUtc],[AvailableEndDateTimeUtc])
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'QueuedEmail' AND COLUMN_NAME = 'DontSendBeforeDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_QueuedEmail_SentOnUtc_DontSendBeforeDateUtc_Extended] ON [QueuedEmail]
+	ALTER TABLE [QueuedEmail] ALTER column [DontSendBeforeDateUtc] [datetime2](7) NULL
+	CREATE NONCLUSTERED INDEX [IX_QueuedEmail_SentOnUtc_DontSendBeforeDateUtc_Extended] ON [QueuedEmail] ([SentOnUtc], [DontSendBeforeDateUtc]) INCLUDE ([SentTries])
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'QueuedEmail' AND COLUMN_NAME = 'SentOnUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	DROP INDEX [IX_QueuedEmail_SentOnUtc_DontSendBeforeDateUtc_Extended] ON [QueuedEmail]
+	ALTER TABLE [QueuedEmail] ALTER column [SentOnUtc] [datetime2](7) NULL
+	CREATE NONCLUSTERED INDEX [IX_QueuedEmail_SentOnUtc_DontSendBeforeDateUtc_Extended] ON [QueuedEmail] ([SentOnUtc], [DontSendBeforeDateUtc]) INCLUDE ([SentTries])
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'RecurringPayment' AND COLUMN_NAME = 'StartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [RecurringPayment] ALTER column [StartDateUtc] [datetime2](7) NOT NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'RewardPointsHistory' AND COLUMN_NAME = 'EndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [RewardPointsHistory] ALTER column [EndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ScheduleTask' AND COLUMN_NAME = 'LastStartUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ScheduleTask] ALTER column [LastStartUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ScheduleTask' AND COLUMN_NAME = 'LastEndUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ScheduleTask] ALTER column [LastEndUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ScheduleTask' AND COLUMN_NAME = 'LastSuccessUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ScheduleTask] ALTER column [LastSuccessUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Shipment' AND COLUMN_NAME = 'ShippedDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Shipment] ALTER column [ShippedDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Shipment' AND COLUMN_NAME = 'DeliveryDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [Shipment] ALTER column [DeliveryDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ShoppingCartItem' AND COLUMN_NAME = 'RentalStartDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ShoppingCartItem] ALTER column [RentalStartDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'ShoppingCartItem' AND COLUMN_NAME = 'RentalEndDateUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [ShoppingCartItem] ALTER column [RentalEndDateUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TierPrice' AND COLUMN_NAME = 'StartDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [TierPrice] ALTER column [StartDateTimeUtc] [datetime2](7) NULL
+END
+GO
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'TierPrice' AND COLUMN_NAME = 'EndDateTimeUtc' and DATA_TYPE = 'datetime')
+BEGIN
+	ALTER TABLE [TierPrice] ALTER column [EndDateTimeUtc] [datetime2](7) NULL
+END
+GO	
+
+-- alter procedure
+ALTER PROCEDURE [FullText_Enable]
+AS
+BEGIN
+	--create catalog
+	EXEC('
+	IF NOT EXISTS (SELECT 1 FROM sys.fulltext_catalogs WHERE [name] = ''nopCommerceFullTextCatalog'')
+		CREATE FULLTEXT CATALOG [nopCommerceFullTextCatalog] AS DEFAULT')
+
+	DECLARE @SQL nvarchar(500);
+	DECLARE @index_name nvarchar(1000)
+	DECLARE @ParmDefinition nvarchar(500);
+
+	SELECT @SQL = N'SELECT @index_name_out = i.name FROM sys.tables AS tbl INNER JOIN sys.indexes AS i ON (i.index_id > 0 and i.is_hypothetical = 0) AND (i.object_id=tbl.object_id) WHERE (i.is_unique=1 and i.is_disabled=0) and (tbl.name=@table_name)'
+	SELECT @ParmDefinition = N'@table_name varchar(100), @index_name_out nvarchar(1000) OUTPUT'
+
+	EXEC sp_executesql @SQL, @ParmDefinition, @table_name = 'Product', @index_name_out=@index_name OUTPUT
+	
+	--create indexes
+	DECLARE @create_index_text nvarchar(4000)
+	SET @create_index_text = '
+	IF NOT EXISTS (SELECT 1 FROM sys.fulltext_indexes WHERE object_id = object_id(''[Product]''))
+		CREATE FULLTEXT INDEX ON [Product]([Name], [ShortDescription], [FullDescription])
+		KEY INDEX [' + @index_name +  '] ON [nopCommerceFullTextCatalog] WITH CHANGE_TRACKING AUTO'
+	EXEC(@create_index_text)
+
+	EXEC sp_executesql @SQL, @ParmDefinition, @table_name = 'LocalizedProperty', @index_name_out=@index_name OUTPUT
+	
+	SET @create_index_text = '
+	IF NOT EXISTS (SELECT 1 FROM sys.fulltext_indexes WHERE object_id = object_id(''[LocalizedProperty]''))
+		CREATE FULLTEXT INDEX ON [LocalizedProperty]([LocaleValue])
+		KEY INDEX [' + @index_name +  '] ON [nopCommerceFullTextCatalog] WITH CHANGE_TRACKING AUTO'
+	EXEC(@create_index_text)
+
+	EXEC sp_executesql @SQL, @ParmDefinition, @table_name = 'ProductTag', @index_name_out=@index_name OUTPUT
+
+	SET @create_index_text = '
+	IF NOT EXISTS (SELECT 1 FROM sys.fulltext_indexes WHERE object_id = object_id(''[ProductTag]''))
+		CREATE FULLTEXT INDEX ON [ProductTag]([Name])
+		KEY INDEX [' + @index_name +  '] ON [nopCommerceFullTextCatalog] WITH CHANGE_TRACKING AUTO'
+	EXEC(@create_index_text)
+END
+GO
+
+-- alter procedure
+ALTER PROCEDURE [CategoryLoadAllPaged]
+(
+    @ShowHidden         BIT = 0,
+    @Name               NVARCHAR(MAX) = NULL,
+    @StoreId            INT = 0,
+    @CustomerRoleIds	NVARCHAR(MAX) = NULL,
+    @PageIndex			INT = 0,
+	@PageSize			INT = 2147483644,
+    @TotalRecords		INT = NULL OUTPUT
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+
+    --filter by customer role IDs (access control list)
+	SET @CustomerRoleIds = ISNULL(@CustomerRoleIds, '')
+	CREATE TABLE #FilteredCustomerRoleIds
+	(
+		CustomerRoleId INT NOT NULL
+	)
+	INSERT INTO #FilteredCustomerRoleIds (CustomerRoleId)
+	SELECT CAST(data AS INT) FROM [nop_splitstring_to_table](@CustomerRoleIds, ',')
+	DECLARE @FilteredCustomerRoleIdsCount INT = (SELECT COUNT(1) FROM #FilteredCustomerRoleIds)
+
+    --ordered categories
+    CREATE TABLE #OrderedCategoryIds
+	(
+		[Id] int IDENTITY (1, 1) NOT NULL,
+		[CategoryId] int NOT NULL
+	)
+    
+    --get max length of DisplayOrder and Id columns (used for padding Order column)
+    DECLARE @lengthId INT = (SELECT LEN(MAX(Id)) FROM [Category])
+    DECLARE @lengthOrder INT = (SELECT LEN(MAX(DisplayOrder)) FROM [Category])
+
+    --get category tree
+    ;WITH [CategoryTree]
+    AS (SELECT [Category].[Id] AS [Id], 
+		(select RIGHT(REPLICATE('0', @lengthOrder)+ RTRIM(CAST([Category].[DisplayOrder] AS NVARCHAR(MAX))), @lengthOrder)) + '-' + (select RIGHT(REPLICATE('0', @lengthId)+ RTRIM(CAST([Category].[Id] AS NVARCHAR(MAX))), @lengthId))  AS [Order]
+        FROM [Category] WHERE [Category].[ParentCategoryId] = 0
+        UNION ALL
+        SELECT [Category].[Id] AS [Id], 
+		[CategoryTree].[Order] + '|' + (select RIGHT(REPLICATE('0', @lengthOrder)+ RTRIM(CAST([Category].[DisplayOrder] AS NVARCHAR(MAX))), @lengthOrder)) + '-' + (select RIGHT(REPLICATE('0', @lengthId)+ RTRIM(CAST([Category].[Id] AS NVARCHAR(MAX))), @lengthId))  AS [Order]
+        FROM [Category]
+        INNER JOIN [CategoryTree] ON [CategoryTree].[Id] = [Category].[ParentCategoryId])
+    INSERT INTO #OrderedCategoryIds ([CategoryId])
+    SELECT [Category].[Id]
+    FROM [CategoryTree]
+    RIGHT JOIN [Category] ON [CategoryTree].[Id] = [Category].[Id]
+
+    --filter results
+    WHERE [Category].[Deleted] = 0
+    AND (@ShowHidden = 1 OR [Category].[Published] = 1)
+    AND (@Name IS NULL OR @Name = '' OR [Category].[Name] LIKE ('%' + @Name + '%'))
+    AND (@ShowHidden = 1 OR @FilteredCustomerRoleIdsCount  = 0 OR [Category].[SubjectToAcl] = 0
+        OR EXISTS (SELECT 1 FROM #FilteredCustomerRoleIds [roles] WHERE [roles].[CustomerRoleId] IN
+            (SELECT [acl].[CustomerRoleId] FROM [AclRecord] acl WITH (NOLOCK) WHERE [acl].[EntityId] = [Category].[Id] AND [acl].[EntityName] = 'Category')
+        )
+    )
+    AND (@StoreId = 0 OR [Category].[LimitedToStores] = 0
+        OR EXISTS (SELECT 1 FROM [StoreMapping] sm WITH (NOLOCK)
+			WHERE [sm].[EntityId] = [Category].[Id] AND [sm].[EntityName] = 'Category' AND [sm].[StoreId] = @StoreId
+		)
+    )
+    ORDER BY ISNULL([CategoryTree].[Order], 1)
+
+    --total records
+    SET @TotalRecords = @@ROWCOUNT
+
+    --paging
+    SELECT [Category].* FROM #OrderedCategoryIds AS [Result] INNER JOIN [Category] ON [Result].[CategoryId] = [Category].[Id]
+    WHERE ([Result].[Id] > @PageSize * @PageIndex AND [Result].[Id] <= @PageSize * (@PageIndex + 1))
+    ORDER BY [Result].[Id]
+
+    DROP TABLE #FilteredCustomerRoleIds
+    DROP TABLE #OrderedCategoryIds
+END
+
+-- delete unused functions
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[nop_getnotnullnotempty]') AND type = N'FN')
+BEGIN
+	DROP FUNCTION [nop_getnotnullnotempty]
+END
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[nop_getprimarykey_indexname]') AND type = N'FN')
+BEGIN
+	DROP FUNCTION [nop_getprimarykey_indexname]
+END
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[nop_padright]') AND type = N'FN')
+BEGIN
+	DROP FUNCTION [nop_padright]
 END
 GO

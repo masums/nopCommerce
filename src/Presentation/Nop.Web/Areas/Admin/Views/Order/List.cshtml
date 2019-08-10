@@ -289,7 +289,7 @@
                                 Length = Model.PageSize,
                                 LengthMenu = Model.AvailablePageSizes,
                                 FooterCallback = !Model.IsLoggedInAsVendor ? "ordersfootercallback" : null,
-                                FooterColumns = !Model.IsLoggedInAsVendor ? 3 : 0,
+                                FooterColumns = !Model.IsLoggedInAsVendor ? 10 : 0,
                                 Filters = new List<FilterParameter>
                                                 {
                                                     new FilterParameter(nameof(Model.StartDate)),
@@ -315,7 +315,7 @@
                                                 {
                                                     IsMasterCheckBox = true,
                                                     Render = new RenderCheckBox("checkbox_orders"),
-                                                    ClassName =  StyleColumn.CenterAll,
+                                                    ClassName =  NopColumnClassDefaults.CenterAll,
                                                     Width = "50",
                                                 },
                                                 new ColumnProperty(nameof(OrderModel.CustomOrderNumber))
@@ -379,10 +379,10 @@
                             {
                                 Title = T("Admin.Common.View").Text,
                                 Width = "50",
-                                ClassName = StyleColumn.ButtonStyle,
+                                ClassName = NopColumnClassDefaults.Button,
                                 Render = new RenderButtonEdit(new DataUrl("Edit"))
                             });
-                            var orderSummaryColumnNumber = 2;
+                            var orderSummaryColumnNumber = 8;
                         }
 
                         @await Html.PartialAsync("Table", gridModel)
@@ -442,7 +442,7 @@
                                     type: "POST",
                                     url: "@(Url.Action("ReportAggregates", "Order"))",
                                     data: postData,
-                                    success: function(data) {
+                                    success: function (data, textStatus, jqXHR) {
                                         if (data) {
                                             for (var key in data) {
                                                 var reportSummary = '<div><strong>@T("Admin.Orders.Report.Summary")</strong></div>' +
@@ -477,6 +477,7 @@
             var ids = selectedIds.join(",");
             $('#export-xml-selected-form #selectedIds').val(ids);
             $('#export-xml-selected-form').submit();
+            updateTable('#orders-grid');
             return false;
         });
     });
@@ -494,6 +495,7 @@
             var ids = selectedIds.join(",");
             $('#export-excel-selected-form #selectedIds').val(ids);
             $('#export-excel-selected-form').submit();
+            updateTable('#orders-grid');
             return false;
         });
     });
@@ -511,6 +513,7 @@
             var ids = selectedIds.join(",");
             $('#pdf-invoice-selected-form #selectedIds').val(ids);
             $('#pdf-invoice-selected-form').submit();
+            updateTable('#orders-grid');
             return false;
         });
     });
